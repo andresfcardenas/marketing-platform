@@ -1,0 +1,145 @@
+{% extends 'layout/base.html' %}
+{% load thumbnail %}
+<h4><span>{{ category }}</span></h4>
+{% block main_content %}
+
+<ul class="breadcrumb">
+    <li><a href="#">Home</a> <span class="divider">/</span></li>
+    <li><a href="#">Features</a> <span class="divider">/</span></li>
+    <li class="active">Category Template with Grid Style</li>
+</ul>
+            
+<div class="row">
+
+<div class="span9 post">
+<h2 class="page-header"><span>Category Template with Grid Style</span></h2>
+<div class="sidebar-line"><span></span></div>
+    <div class="row-fluid">
+    {% for product in products_list %}
+    {% if forloop.counter0|divisibleby:"4" %}
+
+            {% if forloop.counter0 != 0 %}
+            </div>
+            <div class="row-fluid">
+            {% endif %}
+
+    {% endif %}
+        <div class="span3">
+            <div class="wdt-product">
+                <div class="wdt-products-wrapper">
+                    <div class="wdt-product active show">
+                        <a href="{{ product.get_absolute_url }}" title="{{ product.name }}">
+                            <img src="{{ product.image|thumbnail_url:'avatar_169' }}" alt="{{ product.name }}" />
+                        </a>
+                        <h4><a href="{{ product.get_absolute_url }}" title="{{ product.name }}">{{ product.name }}</a></h4>
+                        <ul class="rating">
+                            <li><i class="star-on"></i></li>
+                            <li><i class="star-on"></i></li>
+                            <li><i class="star-on"></i></li>
+                            <li><i class="star-on"></i></li>
+                            <li><i class="star-off"></i></li>
+                        </ul>
+                            <div class="wdt-pricing">
+                                <span class="amount">${{ product.price }}</span>
+                            </div>
+                        <div class="wdt-cart">
+                            <div class="wdt-cart-bar">
+                                <a href="product.html" title="Pure Color Leisure"><i class="icon-shopping-cart"></i> Add to basket</a>
+                            </div>
+                        </div>
+                        <div class="wdt-overlay">
+                            <span class="amount">${{ product.price }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if forloop.last %}
+        </div>
+    {% endif %}
+    {% endfor %}         
+</div><!-- end post span -->
+
+
+<div class="span3 sidebar">
+<div class="widget">
+<h2 class="widget-title"><span>Recent Review Items</span></h2>
+<div class="sidebar-line"><span></span></div>
+<ul class="reviews-posts">
+<li>
+    <div class="review-thumbnail">
+        <a href="#" title="Permalink to this product" rel="bookmark"><img class="img-polaroid" width="70" src="demo-images/01_sidebar.jpg" alt="" /></a>
+    </div><!-- review-thumbnail /-->
+        <h3><a href="#" title="Permalink to this product" >Latest review Item</a></h3>  
+       
+    <ul class="rating">
+        <li><i class="star-on"></i></li>
+        <li><i class="star-on"></i></li>
+        <li><i class="star-on"></i></li>
+        <li><i class="star-on"></i></li>
+        <li><i class="star-on"></i></li>
+    </ul>
+</li>
+
+<li>
+    <div class="review-thumbnail">
+        <a href="#" title="Permalink to this product" rel="bookmark"><img class="img-polaroid" width="70" src="" alt="" /></a>
+    </div><!-- review-thumbnail /-->
+        <h3><a href="#" title="Permalink to this product" >Latest review Item</a></h3>  
+       
+    <ul class="rating">
+        <li><i class="star-on"></i></li>
+        <li><i class="star-on"></i></li>
+        <li><i class="star-on"></i></li>
+        <li><i class="star-off"></i></li>
+        <li><i class="star-off"></i></li>
+    </ul>
+</li>
+
+<li>
+    <div class="review-thumbnail">
+        <a href="#" title="Permalink to this product" rel="bookmark"><img class="img-polaroid" width="70" src="demo-images/02_sidebar.jpg" alt="" /></a>
+    </div><!-- review-thumbnail /-->
+        <h3><a href="#" title="Permalink to this product" >Latest review Item</a></h3>  
+       
+    <ul class="rating">
+        <li><i class="star-on"></i></li>
+        <li><i class="star-on"></i></li>
+        <li><i class="star-on"></i></li>
+        <li><i class="star-on"></i></li>
+        <li><i class="star-off"></i></li>
+    </ul>
+</li>
+</ul>
+</div>
+
+<div class="widget">
+<h2 class="widget-title"><span>Site Categories</span></h2>
+<div class="sidebar-line"><span></span></div>
+    <ul class="bullet_arrow2 categories">
+        <li><a href="category-list.html">Woman's</a></li>
+        <li><a href="category-list.html">Mans's</a></li>
+        <li><a href="category-list.html">Child's</a>
+            <ul>
+                <li><a href="category-list.html">Bags</a></li>
+                <li><a href="category-list.html">Jevellery</a></li>
+                <li><a href="category-list.html">Shoes</a></li>
+                <li><a href="category-list.html">Shirts</a></li>
+            </ul>
+        </li>
+        <li><a href="category-list.html">Holiday Sale's</a></li>
+        <li><a href="category-list.html">Special Promotions</a></li>
+        <li><a href="category-list.html">Father Day's</a></li>
+        <li><a href="category-list.html">Happy Valentines</a></li>
+    </ul>
+</div>
+
+<div class="widget">        
+<h2 class="widget-title"><span>Advertising</span></h2>
+<div class="sidebar-line"><span></span></div>
+    <img src="demo-images/01_sidebar-ads.jpg" width="250" alt=""/>
+        
+    </div>
+</div>
+</div>
+{% endblock main_content %}

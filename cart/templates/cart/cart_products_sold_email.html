@@ -1,0 +1,22 @@
+{% load humanize %}
+<html>
+    <body>
+        <h1>Has vendido uno o mas productos en Ligu</h1>
+        <p>Un usuario ha hecho una compra de uno o varios productos en tu tienda Ligu.</p>
+        <p>Pronto uno de nuestros asesores se contactara contigo para terminar el proceso de compra.</p>
+        <table>
+            <th>Cantidad</th>
+            <th>Producto</th>
+            <th>Valor unitario</th>
+            <th>Subtotal</th>
+            {% for item in product_list %}
+            <tr>
+                <td>{{ item.amount }}</td>
+                <td>{{ item.product }}</td>
+                <td>${{ item.product.price|intcomma }}</td>
+                <td>${{ item.subtotal|intcomma }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>

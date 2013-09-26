@@ -1,0 +1,39 @@
+{% extends 'layout/base.html' %}
+{% load crispy_forms_tags thumbnail %}
+
+{% block main_content %}
+<h2>Actualizar información de tu tienda.</h2>
+<div class="data_store">
+    <div class="logo_container">
+        <img src="{{ store.logo|thumbnail_url:'avatar_140' }}" title="logo" alt="logo"/>
+        <form style="display:none;" action="{% url 'store:upload-store-image' store.slug %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input id="id_logo" type="file" name="logo" />
+        </form>
+        <h4 class="regular_font add_logo">
+            <a class="mask_cover" href="#"><span class="change_logo"></span>Change</a>
+        </h4>
+    </div>
+</div>
+{% crispy form %}
+{% endblock main_content %}
+
+{% block js %}
+<script type="text/javascript">
+$(document).on('ready', function(){
+    // show add image when rollover
+    $('.data_store img').hover(function () {
+        $(this).css({opacity: '0.3', cursor:'pointer'}).parent().find('.add_logo').css({opacity: '1', cursor: 'auto'});
+    }, function () {
+        $(this).css({opacity: '1', cursor:'auto'}).parent().find('.add_logo').css({opacity: '0.3', cursor: 'pointer'});
+    });
+    // Upload file handlers
+    $('#id_logo').on('change', function () {
+        $(this).parent().submit();
+    });
+    $('.data_store img').on('click', function() {
+        $('#id_logo').click();
+    });
+});
+</script>
+{% endblock js %}

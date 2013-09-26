@@ -1,0 +1,1 @@
+Usuario registrado en {{ site }}

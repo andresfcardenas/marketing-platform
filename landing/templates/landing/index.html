@@ -1,0 +1,176 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.0/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+  <link href="http://www.bootply.com/bootply/bootply.css" type="text/css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/colorbox.css' %}">
+  <style type="text/css" id="bsCss">
+        /* override bootstrap styles */
+        @import url('http://fonts.googleapis.com/css?family=Open+Sans:200,300');
+
+body {
+  background: url("{% static 'images/green_suburb.jpg' %} ") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  color:#fff;
+    background-color:#333;
+    font-family: 'Open Sans',Arial,Helvetica,Sans-Serif;
+    font-size: 16px;
+}
+
+a:link, a:visited {
+  color:#eee;
+}
+
+.block {
+  background-color:rgba(0,0,0,0.5);
+    height:280px;
+    padding-left:12px;
+    padding-right:12px;
+}
+
+.block-sm {
+    height:180px;
+}
+
+.btn-flat {
+    font-family: 'Open Sans',Arial,Helvetica,Sans-Serif;
+  border-radius:0px;
+    border-width:0;
+    background-image:none;
+    padding:16px;
+    margin:0 auto;
+    margin-top:15px;
+    width:40%;
+    font-size:20pt;
+}
+
+/* mini carousel */
+.carousel-inner img {
+  width:100%;
+    height:100%;
+}
+
+#myCarousel {
+  font-size:90%;
+}
+
+.carousel-controls-mini {
+  margin-left:42%;
+}
+
+.carousel-controls-mini > a {
+  border:1px solid #eee;
+    margin:1px;
+    width:20px;
+    display:block;
+    float:left;
+    text-align:center;
+}
+
+#carousel-bounding-box {
+  margin:0 auto;
+  width:300px;
+}
+
+
+
+        </style>
+</head>
+<body>
+<div class="container">
+  <br>
+  <div class="row-fluid">
+    <div class="span10 offsetHalf" style="text-align: center;">
+        
+    <img src="{% static 'images/128x128.png' %}">
+    </div>
+  </div>
+   <br><br><br>
+  <div class="row-fluid">
+      <h1 class="pull-center"><strong>¡Conviertete en proveedor de Ligu!
+</strong></h1>
+      <p class="lead pull-center">¿Tu producto es unico y quieres venderlo por internet?</p>
+  </div>  
+  <br><br><br><br>
+  <div class="row-fluid">
+    
+        <div class="span10 offsetHalf block">
+          <div class="pull-center">
+            <p></p><h1>¡Unete a Ligu!</h1><p></p>
+            <p>Necesitamos gente comprometida con su negocio y que este dispuesta a crecer <br>
+con nosotros siendo nuestros proveedores: Chocolates, restaurantes,<br> 
+              arreglos frutales, spa, floristerias, postres.<br></p>
+              <p>
+              	Si tu producto esta en el listado anterior o consideras<br> que deberiamos contactarte dejanos tus datos aplicando como proveedor.
+              </p>
+                  <a class="cbox_provider_request btn btn-primary btn-flat" href="{% url 'userprofile:ajax_provider_request' %}">Aplicar como proveedor<i class="pull-right icon-chevron-right icon-large"></i></a>
+          </div>
+        </div>
+        
+      
+  </div>  
+  <br><br>
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="span3 block block-sm offsetHalf1">
+      <h2>Aplica</h2>
+        Aplica como proveedor en Ligu y unete a nosotros.
+      </div>
+      <div class="span3 block block-sm">
+      <h2>Muestra</h2>
+        Te proporcionamos nuestra plataforma para que muestres tus productos.
+      </div>
+      <div class="span3 block block-sm">
+      <h2>Vende</h2>
+        Vende tus productos, con la ayuda de Ligu.
+      </div>
+    </div>
+  </div>
+</div><!---/cont---->
+<br><br>
+<div>
+  <br>
+  <br>
+  <br>
+  <br><br>
+  <div class="row-fluid">
+  <a href="http://ligu.co" title="Bootstrap playground">Ligu.co</a>
+    <div class="pull-right">
+    <a href="https://www.facebook.com/Ligu.Co"><i class="icon-facebook icon-3x"></i> </a> &nbsp;
+     </div>
+    
+  </div>
+  <br><br>
+</div>
+
+<script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="{% static 'js/jquery.colorbox-min.js' %}"></script>
+<script src="{% static 'js/jquery.validate.min.js' %}"></script>
+    
+    
+        <script type='text/javascript' src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    
+    
+    
+        <script type='text/javascript' id="bsJs">
+        
+        $(document).ready(function() {
+        
+            
+        
+        });
+        
+        </script>
+        
+    </body>
+
+<script type="text/javascript">
+// Open the provider request colorbox
+$('.cbox_provider_request').colorbox();
+</script>
+</html>

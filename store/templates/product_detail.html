@@ -1,0 +1,87 @@
+{% extends 'layout/base.html' %}
+{% load thumbnail %}
+
+{% block title %}{{ product.name }}{% endblock title %}
+
+{% block main_content %}
+
+<ul class="breadcrumb">
+    <li><a href="{% url 'home' %}">Home</a> <span class="divider">/</span></li>
+    <li><a href="{{ product.store.get_absolute_url }}">{{ product.store.name }}</a> <span class="divider">/</span></li>
+    <li class="active">{{ product.name }}</li>
+</ul>
+
+<div class="row">
+
+<div class="span9 post">
+	<h2 class="page-header"><span>{{ product.name }}</span></h2>
+	<div class="sidebar-line"><span></span></div>                    
+<div class="row-fluid product-info">
+    <div class="span7">
+        <div class="cf">
+            <span class="productwrap"><img id="demo4" src="{{ product.image|thumbnail_url:'avatar_316' }}" /></span>
+		</div>
+	</div>
+
+    <div class="span5">
+        <h2 class="post-title">{{ product.name }}</h2>
+    	<p>{{ product.description }}</p>
+   
+        <div class="price">
+            <span class="price-new">${{ product.price }}</span>
+            <br>
+        </div>
+        <div class="row-fluid">            
+            <div class="span6">
+                <a id="add_to_cart" class="btn btn-general" title="Add to Cart" data-code="{{ product.id }}" data-price="{{ product.price }}">
+                <span><i class="icon-shopping-cart"></i> Add to Cart</span>
+                </a>
+			</div>
+        </div>
+                    
+        <div class="deal-share">
+			<!-- AddThis Button BEGIN -->
+			<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+			<a class="addthis_button_facebook"></a>
+			<a class="addthis_button_twitter"></a>
+			<a class="addthis_button_pinterest_share"></a>
+			<a class="addthis_button_google_plusone_share"></a>
+			<a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+			</div>
+			<script type="text/javascript">
+				var addthis_config = {"data_track_addressbar":true};
+				var addthis_share = {templates: {twitter: '{{ product.name }} {{ current_site }}{{ product.get_absolute_url }} (via @ligushop)',}}
+</script>
+			<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51193bee47b24ad4"></script>
+			<!-- AddThis Button END -->
+		</div>                    
+    </div>
+</div>
+</div><!-- end post span -->
+
+    
+<div class="span3 sidebar">
+<div class="widget">
+<h2 class="widget-title"><span>{{ product.store.name }}</span></h2>
+<div class="sidebar-line"><span></span></div>
+<img src="{{ product.store.logo|thumbnail_url:'avatar_140' }}" alt="{{ store.name }}" />
+    <br>
+    {{ product.store.description }}
+    <br>
+    {{ product.store.phone }}
+    <br>
+    {{ product.store.address }}
+	{% if user.is_authenticated %}
+	{% if user.userprofile.is_provider %}
+	{% if product.created_by == user %}
+	<p>
+		<a href="{% url 'store:product-update' slug product.slug %}" class="btn btn-primary">Actualizar informacion del producto</a>
+		<a href="{% url 'store:delete_product' slug product.slug %}" class="btn btn-general">Elimnar producto</a>
+	</p>
+	{% endif %}
+	{% endif %}
+	{% endif %}
+</div>
+    </div>
+    </div>
+{% endblock main_content %}

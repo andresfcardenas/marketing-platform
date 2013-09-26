@@ -1,0 +1,22 @@
+{% extends "layout/base.html" %}
+
+{% block title %}
+Tu cuenta ha sido activada.
+{% endblock title %}
+
+
+{% block main_content %}
+<div class="title_container">
+	<div class="wrapper">
+		<h2>Cuenta activada</h2>
+	</div>
+</div>
+<div class="container registration_content">
+	<div class="success_activate">
+		<h3>Su cuenta ha sido habilitada</h3>
+		<h3>Bienvenido a Ligu</h3>
+		<p>De ahora en adelante te podrás loguear con tu email y contraseña.</p>
+		<p><a class="button" href="{% url 'userprofile:dashboard' %}">Ir a tu dashboard</a></p>
+	</div>
+</div>
+{% endblock main_content %}

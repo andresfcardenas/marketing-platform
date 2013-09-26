@@ -1,0 +1,11 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Users - Account activation{% endblock %}
+
+{% block main_content %}
+<div class="container registration_content">
+	<h1>Ups, there is something wrong with your key.</h1>
+	<h3>The key sent is <span>{{ activation_key }}</span>  and it is incorrect.</h3>
+	<h4>Verify that it is spelled correctly as it appears on the activation message sent to your email address.</p>
+</div>
+{% endblock main_content %}

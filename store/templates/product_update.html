@@ -1,0 +1,72 @@
+{% extends 'layout/base.html' %}
+{% load crispy_forms_tags thumbnail staticfiles %}
+
+{% block main_content %}
+<h2>Actualizar información del producto</h2>
+<div class="data_product">
+    <div class="image_container">
+        <img src="{{ product.image|thumbnail_url:'avatar_140' }}" title="image" alt="image"/>
+        <form style="display:none;" action="{% url 'store:upload-product-image' product.slug %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input id="id_logo" type="file" name="image" />
+        </form>
+        <h4 class="regular_font add_image">
+            <a class="mask_cover" href="#"><span class="change_image"></span>Change</a>
+        </h4>
+    </div>
+</div>
+{% crispy form %}
+<div class="tags_autocomplete_container"></div>
+{# <form method="post" action="{% url 'store:product-update' product.store.slug product.slug %}" enctype="multipart/form-data"> #}
+    {# {% csrf_token %} #}
+{# {{ form.name }} #}
+{# {{ form.description }} #}
+{# {{ form.quantity }} #}
+{# {{ form.category }} #}
+{# {{ form.price }} #}
+{# {{ form.tags }} #}
+{# <input type="submit" name="submit" value="Update product" class="btn btn-primary" id="submit-id-submit"> #}
+{# </form> #}
+{% endblock main_content %}
+
+{% block js %}
+<script type="text/javascript">
+$(document).on('ready', function(){
+    // show add image when rollover
+    $('.data_product img').hover(function () {
+        $(this).css({opacity: '0.3', cursor:'pointer'}).parent().find('.add_image').css({opacity: '1', cursor: 'auto'});
+    }, function () {
+        $(this).css({opacity: '1', cursor:'auto'}).parent().find('.add_image').css({opacity: '0.3', cursor: 'pointer'});
+    });
+    // Upload file handlers
+    $('#id_logo').on('change', function () {
+        $(this).parent().submit();
+    });
+    $('.data_product img').on('click', function() {
+        $('#id_logo').click();
+    });
+});
+</script>
+<script type="text/javascript">
+$(function () {
+    'use strict';
+    $('#id_tags').tagit({
+        singleField: true,
+        autocomplete: {
+            source: "{% url 'store:ajax_search_tags' %}",
+            appendTo: "div.tags_autocomplete_container",
+            minLength: 1,
+            open: function(event, ui) {
+                if ($('span.arrow_top').length > 0) {
+                    $('span.arrow_top').remove();
+                }
+                $(".tags_autocomplete_container > ul.ui-autocomplete").before('<span class="arrow_top"></span>');
+            },
+            close: function(event, ui) {
+                $('span.arrow_top').remove();
+            }
+        }
+    });
+});
+</script>
+{% endblock js %}

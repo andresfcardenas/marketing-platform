@@ -1,0 +1,270 @@
+{% extends 'layout/base.html' %}
+{% load staticfiles thumbnail %}
+{% block navigation %}
+{% endblock navigation %}        
+
+{% block main_content %}
+  <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=139247219619854";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+    <div id="layerslider-container-fw">
+      
+      <div id="layerslider" style="width: 100%; height: 560px; margin: 0px auto;">
+
+        <div class="ls-layer" style="slidedelay: 7000;">
+     
+            <img src="{% static 'images/demo-images/01_slider.jpg' %}" alt="" class="ls-bg">
+                <h5 class="ls-s-1 text-f" style="top:50px; left: 30px; slidedirection : fade; slideoutdirection : fade; scalein : 0.5; scaleout : 0.5;"><span>Ligu</span></h5>
+                <h5 class="ls-s-1 text7" style="top:160px; left: 50px; slidedirection : fade; slideoutdirection : fade; durationout : 750; easingin : easeOutQuint; delayin : 900; scalein : .8; scaleout : .8;">El regalo ideal...</h5>
+                <h5 class="ls-s-1 text7" style="top:200px; left: 50px; slidedirection : fade; slideoutdirection : fade; durationout : 750; easingin : easeOutQuint; delayin : 1300; scalein : .8; scaleout : .8;">Para esa persona especial.</h5>
+                <h5 class="ls-s-1 text6" style="top:89px; left: 567px; slidedirection : fade; slideoutdirection : fade; scalein : 0.5; scaleout : 0.5;">Solicita nuestra asesoria para comprar el regalo ideal.</h5>
+                <div class="ls-s2" style="position: absolute; top:159px; left: 570px; slidedirection : right; slideoutdirection : bottom; durationin : 1500; durationout : 1500; easingin : easeOutBack; easingout : easeInOutQuint; delayin : 0; delayout : 0; showuntil : 0; ">
+                <form method="post" action="{% url 'home' %}" class="form-reg" style="top: 40px; left: 40px; slidedirection : left; slideoutdirection : left; durationin : 750; easingin : easeOutQuart; easingout : easeInQuart; delayin : 1500; showuntil : 1; ">
+                {% csrf_token %}
+                {{ form.name }}
+                <br>
+                {{ form.email }}
+                <br>
+                <button class="btn btn-general" type="submit" style="text-align:center;">Haz tu solicitud</button>
+                </form>
+                <br>
+                <div  class="fb-like" data-href="https://www.facebook.com/Ligu.Co" data-width="100" data-show-faces="false" data-send="true"></div>
+                </div>
+        </div>
+      </div>
+            
+
+            </div>
+
+  <!-- Start Carousels -->
+      <div class="row-fluid">
+      <div class="span6">
+                <h2 class="widget-title"><span>Ultimas tiendas</span></h2>
+        <div class="sidebar-line"><span></span></div>
+        <div class="for-womans flexslider flex-direction-nav-on-top">
+          <ul class="slides">
+            <li>
+            {% for store in store_list %}
+            {% if forloop.counter0|divisibleby:"3" %}
+              {% if forloop.counter0 != 0 %}
+              </li>
+              {% endif %}
+            {% endif %}
+              <div class="span4">
+                <div class="wdt-product">
+                  <div class="wdt-products-wrapper">
+                    <div class="wdt-product active show">
+                      <a href="{{ store.get_absolute_url }}" title="{{ store.name }}"><img src="{{ store.logo|thumbnail_url:'avatar_140' }}" alt="{{ store.name }}" /></a>
+                      <h4><a href="{{ store.get_absolute_url }}" title="{{ store.name }}">{{ store.name }}</a></h4>
+                      <div class="wdt-pricing">
+                      <span class="amount">{{ store.name }}</span>
+                      </div>
+                      <div class="wdt-cart">
+                        <div class="wdt-cart-bar">
+                          <a href="{{ store.get_absolute_url }}" title="{{ store.name }}"> {{ store.name }}</a>
+                      </div>
+                      </div>
+                      <div class="wdt-overlay">
+                        <a href="{{ store.get_absolute_url }}" title="#"><span class="amount">Ver tienda</span></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {# </li> #}
+            {% if forloop.last %}
+                  </li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <div class="span6">
+                <h2 class="widget-title"><span>Ultimos productos</span></h2>
+        <div class="sidebar-line"><span></span></div>
+        <div class="for-mans flexslider flex-direction-nav-on-top">
+          <ul class="slides">
+            <li>
+              {% for product in product_list %}
+              {% if forloop.counter0|divisibleby:"3" %}
+                {% if forloop.counter0 != 0 %}
+                </li>
+                <li>
+                {% endif %}
+              {% endif %}
+              <div class="span4">
+                <div class="wdt-product">
+                  <div class="wdt-products-wrapper">
+                    <div class="wdt-product active show">
+                      <a href="{{ product.get_absolute_url }}" title="{{ product.name }}"><img src="{{ product.image|thumbnail_url:'avatar_140' }}" alt="{{ product.name }}" /></a>
+                      <h4><a href="{{ product.name }}" title="{{ product.name }}">{{ product.name }}</a></h4>
+                      <div class="wdt-pricing">
+                      <span class="amount">${{ product.price }}</span>
+                      </div>
+                      <div class="wdt-cart">
+                        <div class="wdt-cart-bar">
+                          <a href="{{ product.get_absolute_url }}" title="{{ product.name }}"><i class="icon-shopping-cart"></i> Añadir a carrito</a>
+                      </div>
+                      </div>
+                      <div class="wdt-overlay">
+                        <a href="{{ product.get_absolute_url }}" title="#"><span class="amount">${{ product.price }}</span></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {# </li> #}
+              {% if forloop.last %}
+                  </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+        </div>
+  <!-- End Carousels -->
+
+<!-- Start Tab & Deal -->
+<div class="services">
+  <div class="row-fluid">
+    <div class="span12">
+            <ul id="wdtTab" class="nav nav-tabs">
+              <li class="active"><a href="#new-arrival" data-toggle="tab">Lo último en chocolates</a></li>
+              <li><a href="#best-sellers" data-toggle="tab">Lo último en postres</a></li>
+              <li> <a href="#specials" data-toggle="tab">Lo último en cupcakes</a></li>
+            </ul>
+            <div id="wdtTabContent" class="tab-content">
+        <div class="tab-pane fade in active" id="new-arrival">
+          <div class="row-fluid">
+            {% for product in product_chocolate %}
+            <div class="span3">
+              <div class="wdt-product">
+                  <div class="wdt-products-wrapper">
+                      <div class="wdt-product active show">
+                          <a href="{{ product.get_absolute_url }}" title="{{ product.name }}">
+                          <img src="{{ product.image|thumbnail_url:'avatar_140' }}" alt="{{ product.name }}" />
+                          </a>
+                          <h4><a href="{{ product.get_absolute_url }}" title="{{ product.name }}"></a></h4>
+                          <div class="wdt-overlay zoom-hover">
+                            <a href="{{ product.get_absolute_url }}" title="{{ product.name }}">
+                              <span class="amount zoom">
+                                <i class="icon-zoom-in"></i>
+                              </span>
+                            </a>
+                          </div>
+                          <div class="wdt-pricing">
+                              <a href="{{ product.get_absolute_url }}" title="{{ product.name }}"><span class="amount">${{ product.price }}</span></a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+              </div>
+              
+        <div class="tab-pane fade" id="best-sellers">
+          <div class="row-fluid">
+            {% for product in product_postres %}
+            <div class="span3">
+              <div class="wdt-product">
+                  <div class="wdt-products-wrapper">
+                      <div class="wdt-product active show">
+                          <a href="{{ product.get_absolute_url }}" title="{{ product.name }}">
+                          <img src="{{ product.image|thumbnail_url:'avatar_140' }}" alt="{{ product.name }}" />
+                          </a>
+                          <h4><a href="{{ product.get_absolute_url }}" title="{{ product.name }}"></a></h4>
+                          <div class="wdt-overlay zoom-hover">
+                              <a href="{{ product.get_absolute_url }}" title="{{ product.name }}">
+                              <span class="amount zoom">
+                                <i class="icon-zoom-in"></i>
+                              </span>
+                            </a>
+                          </div>
+                          <div class="wdt-pricing">
+                              <a href="{{ product.get_absolute_url }}" title="{{ product.name }}"><span class="amount">${{ product.price }}</span></a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+              </div>
+              
+        <div class="tab-pane fade" id="specials">
+          <div class="row-fluid">
+            {% for product in product_cupcakes %}
+            <div class="span3">
+              <div class="wdt-product">
+                  <div class="wdt-products-wrapper">
+                      <div class="wdt-product active show">
+                          <a href="{{ product.get_absolute_url }}" title="{{ product.name }}">
+                          <img src="{{ product.image|thumbnail_url:'avatar_140' }}" alt="{{ product.name }}" />
+                          </a>
+                          <h4><a href="{{ product.get_absolute_url }}" title="{{ product.name }}"></a></h4>
+                          <div class="wdt-overlay zoom-hover">
+                              <a href="{{ product.get_absolute_url }}" title="{{ product.name }}">
+                              <span class="amount zoom">
+                                <i class="icon-zoom-in"></i>
+                              </span>
+                            </a>
+                          </div>
+                          <div class="wdt-pricing">
+                              <a href="{{ product.get_absolute_url }}" title="{{ product.name }}"><span class="amount">${{ product.price }}</span></a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+              </div>
+    </div>
+  </div>
+    </div>   
+</div> 
+    <!-- END Tab & Deal -->   
+{% endblock main_content %}
+{% block footer %}
+{% endblock footer %}
+{% block js %}
+<script type="text/javascript">
+  $('.asteriskField').hide()
+  $('.control-label').hide()
+</script>
+<script type="text/javascript">
+$(document).on('ready', function(){
+  function clear(){
+    $('.form-reg').closest('form').find("input[type=text]").val("");
+    $('.form-reg').find('label.error').hide();
+  };
+
+  $('.form-reg').on('submit', function () {
+    if ($(this).valid()) {
+        $.colorbox({html: '<p style="text-align: center;">Gracias por registrarte.</p><p style="text-align: center;">Pronto te contactaremos...</p>', width: '240px', height: '190px'});
+        $.post(this.action, $(this).serialize(), function (response) {
+          clear();
+        });
+        }
+        return false;
+    }).validate({
+        rules: {
+            name: {
+                required: true,
+            },
+            email: {
+                required: true,
+            }
+        }
+    });
+});
+</script>
+{% endblock js %}
+</body>
+</html>

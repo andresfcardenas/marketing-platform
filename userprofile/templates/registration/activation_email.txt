@@ -1,0 +1,14 @@
+{% url 'registration_activate' activation_key as activation_url %}
+Recibes este mensaje porque alguien se registró en ligu.co
+con tú correo o porque tu hiciste el proceso de registro en
+nuestra palaforma.
+
+Por favor sigue este enlace para activar tu cuenta en ligu.co:
+
+http://{{ site }}{{ activation_url }}
+
+Este link expira en {{ expiration_days }} días.
+
+Gracias,
+
+--

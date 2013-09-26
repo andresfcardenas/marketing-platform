@@ -1,0 +1,101 @@
+{% extends 'layout/base.html' %}
+{% load thumbnail %}
+
+{% block main_content %}
+<ul class="breadcrumb">
+    <li><a href="{% url 'home' %}">Home</a> <span class="divider">/</span></li>
+    <li class="active">Dashboard</li>
+</ul>
+{% if user.is_authenticated %}
+{% if user.userprofile.is_provider %}
+{% if store %}
+<div class="row">
+
+<div class="span9 post">
+<h2 class="page-header"><span>Productos ofrecidos por {{ store.name }}</span></h2>
+<div class="sidebar-line"><span></span></div>                        
+<div class="row-fluid">
+{% if products_list %}
+{% for product in products_list %}
+{% if forloop.counter0|divisibleby:"4" %}
+
+        {% if forloop.counter0 != 0 %}
+        </div>
+        <div class="row-fluid">
+        {% endif %}
+
+{% endif %}
+    <div class="span3">
+        <div class="wdt-product">
+            <div class="wdt-products-wrapper">
+                <div class="wdt-product active show">
+                    <a href="{{ product.get_absolute_url }}" title="{{ product.name }}">
+                        <img src="{{ product.image|thumbnail_url:'avatar_169' }}" alt="{{ product.name }}" />
+                    </a>
+                    <h4><a href="{{ product.get_absolute_url }}" title="{{ product.name }}">{{ product.name }}</a></h4>
+                    <div class="wdt-pricing">
+                        <span class="amount">${{ product.price }}</span>
+                    </div>
+                    <div class="wdt-cart">
+                        <div class="wdt-cart-bar">
+                            <a id="add_to_cart" title="Añadir a carrito" data-code="{{ product.id }}" data-price="{{ product.price }}"><i class="icon-shopping-cart"></i><span> Añadir a carrito</span></a>
+                        </div>
+                    </div>
+                    <div class="wdt-overlay">
+                        <span class="amount"><a href="{{ product.get_absolute_url }}" title="{{ product.name }}">Ver producto</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if forloop.last %}
+    </div>
+{% endif %}
+{% endfor %}
+{% else %}
+    Aún no has agregado productos.
+</div>
+{% endif %} 
+</div><!-- end post span -->
+
+
+<div class="span3 sidebar">
+<div class="widget">
+<h2 class="widget-title"><span>{{ store.name }}</span></h2>
+<div class="sidebar-line"><span></span></div>
+<img src="{{ store.logo|thumbnail_url:'avatar_140' }}" alt="{{ store.name }}" />
+    <br>
+    {{ store.description }}
+    <br>
+    {{ store.phone }}
+    <br>
+    {{ store.address }}
+{% if user.is_authenticated %}
+{% if user.userprofile.is_provider %}
+{% if store.created_by == user %}
+<p>
+<a href="{% url 'store:store-update' store.slug %}" class="btn btn-primary">Actualizar informacion de tienda</a>
+<a href="{% url 'store:product-create' store.slug %}" class="btn btn-primary">Agregar nuevo producto</a>
+</p>
+{% endif %}
+{% endif %}
+{% endif %}
+</div>
+</div>
+</div>
+{% else %}
+<p>
+	<a class="btn btn-general" href="{% url 'store:store-create' %}">Agregar tienda</a>
+</p>
+{% endif %}
+{% else %}
+<p><a class='cbox_provider_request btn btn-general' href="{% url 'userprofile:ajax_provider_request' %}">Aplicar como proveedor.</a></p>
+{% endif %}
+{% endif %}
+{% endblock main_content %}
+{% block js %}
+<script type="text/javascript">
+// Open the provider request colorbox
+$('.cbox_provider_request').colorbox();
+</script>
+{% endblock js %}

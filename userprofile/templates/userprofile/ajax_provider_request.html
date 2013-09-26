@@ -1,0 +1,44 @@
+{% load crispy_forms_tags %}
+
+<div class="provider_request_form">
+{% if form %}
+<form action="{% url 'userprofile:ajax_provider_request' %}" method="post">
+    {% crispy form %}
+</form>
+</div>
+{% endif %}
+
+<script>
+$(function() {
+    'use strict';
+
+    $('.provider_request_form form').on('submit', function () {
+        if ($(this).valid()) {
+            $.colorbox({html: '<p style="text-align: center; color: #000000;">Gracias por aplicar como proveedor.</p><p style="text-align: center; color: #000000;">Pronto uno de nuestros asesores te contactará. :)</p>', width: '300px', height: '190px', fadeOut: 1000});
+            $.post(this.action, $(this).serialize(), function (response) {
+                $('.provider_request_form').parent().html(response);
+            });
+        }
+
+        return false;
+    }).validate({
+        rules: {
+            name: {
+                required: true,
+            },
+            email: {
+                required: true,
+            },
+            product: {
+                required: true,
+            },
+            phone: {
+                required: true,
+            },
+            more_info: {
+                required: true,
+            },
+        }
+    });
+});
+</script>

@@ -1,0 +1,22 @@
+{% load humanize %}
+<html>
+    <body>
+        <h1>Hemos recibido su cotización</h1>
+        <p>{{ name }}, muchas gracias por utilizar nuestro portal web, estaremos en contacto con usted lo antes posible</p>
+        <table>
+            <th>Cantidad</th>
+            <th>Producto</th>
+            <th>Valor unitario</th>
+            <th>Subtotal</th>
+            {% for item in cart_list %}
+            <tr>
+                <td>{{ item.amount }}</td>
+                <td>{{ item.product }}</td>
+                <td>${{ item.product.price|intcomma }}</td>
+                <td>${{ item.subtotal|intcomma }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <p>Total venta: ${{ total|intcomma }}</p>
+    </body>
+</html>

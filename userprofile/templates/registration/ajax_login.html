@@ -1,0 +1,48 @@
+<div class="login_request_form">
+<form method="post" action="{% url 'userprofile:ajax_login' %}" id="login-form">
+    <div class="form_settings">
+    {% csrf_token %}
+
+    {% if form.errors %}
+    <ul class="errorlist">
+        <li>No haz podido iniciar secion, por favor verifica tus datos.</li>
+    </ul>
+    {% endif %}
+
+    <label class="control-label requieredField" for="id_email">Email</label>
+    {{ form.username }}{{ form.username.errors }}
+
+    <label class="control-label requieredField" for="id_password">Password</label>
+    {{ form.password }}{{ form.password.errors }}
+    <input class="button-login" type="submit" value="Login">
+    <div>
+        <a href="{% url 'auth_password_reset' %}">Lost your password?</a>
+    </div>
+
+    </div>
+</form>
+</div>
+
+{% if request.GET.next %}
+    <div>
+    <a class="" href="{% url 'socialauth_begin' 'facebook' %}?next={{ request.GET.next }}">Login con Facebook</a>
+    </div>
+    {% else %}
+    <div>
+    <a class="" href="{% url 'socialauth_begin' 'facebook' %}{{ request.GET.next }}">Login con Facebook</a>
+    </div>
+{% endif %}
+
+<script type="text/javascript">
+$(document).on('submit', '#login-form', function () {
+    $.post($(this).attr('action'), $(this).serialize(), function (response) {
+        if (response === 'ok') {
+            location.href = location.href;
+        } else {
+            $('.login_request_form').parent().html(response);
+        }
+    });
+
+    return false;
+});
+</script>
