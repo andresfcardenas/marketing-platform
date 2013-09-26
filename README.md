@@ -3,6 +3,8 @@ marketing-platform
 
 This is a my creation released under BSD licence. Is my first software licensed ^.^
 
+Code at bitbucket is in https://bitbucket.org/andresfcardenas/marketing-platform
+
 Nota final:
 ===========
 
